@@ -1,9 +1,10 @@
 # pyzermelo-cli
-zermelo client voor zermelo
+zermelo client for zermelo
 
 # TODO
-the client
-choose individual thingie
-give more information
-chnage date
-terminal line arguments
+- the client
+- customization
+- the ability to choose more things
+- give more information
+- ability to change dates
+- terminal line arguments

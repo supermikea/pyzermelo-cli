@@ -1,2 +1,4 @@
 # exclude test python file
 test/
+token.txt
+key.txt

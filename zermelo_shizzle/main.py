@@ -4,9 +4,9 @@ import datetime
 import time
 
 # INITIALISATION
-school = "maartenscollege"
-#token = cl.authenticate("835 377 188 140") # gets token
-token = "1bfgviissnru71j3ksbrelqg1n" # zermelo token
+school = "YOUR SCHOOL HERE"
+token = cl.authenticate("YOUR KEY HERE") # gets token
+token = "YOUR TOKEN HERE" # zermelo token
 cl = zermelo.Client(school) # defines client
 user = cl.get_user(token) # defines user
 ctime = int(time.time())

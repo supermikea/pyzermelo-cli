@@ -48,9 +48,9 @@ def get_shedule(user_info):
                     print(appointment.get('teachers'), end='')
                     print(appointment.get('locations'), end='   ')
                     print(datetime.datetime.fromtimestamp(int(appointment.get('start')))
-                    .strftime('%Y-%m-%d %H:%M:%S') + " ---- ", end='')
+                    .strftime('%H:%M:%S') + " - ", end='')
                     print(datetime.datetime.fromtimestamp(int(appointment.get('end')))
-                    .strftime('%Y-%m-%d %H:%M:%S'))
+                    .strftime('%H:%M:%S'))
 
 
 

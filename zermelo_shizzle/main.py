@@ -35,7 +35,7 @@ def get_shedule(user_info):
     Happointments = cl.get_appointments(user_info.get('token'), today00, today00 + 86400) # get appointment
 
     Happointments = Happointments.get('response')   # extracting response out of the list
-    print(Happointments)
+    #print(Happointments)
     appointments = Happointments.get('data') # this extracts the date out of the response
     for appointment in appointments: # with this code
         order.append(appointment.get('start'))

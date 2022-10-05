@@ -4,17 +4,17 @@ import datetime
 import time
 from os import listdir
 
-school = "maartenscollege"
+school = "maartenscollege" # my school currently *you can change it*
 cl = zermelo.Client(school) # defines client
 
-def authenticate():
+def authenticate(): # authenticate and try to read from file
     user_info = dict();
-    try:
+    try: # try to use token in token file
         token = write_read_tk(False, 0)
         user_info['token'] = token
         user_info['user'] = cl.get_user(token)
         return user_info
-    except:
+    except: # token in token file seems invalid so request key again
         key = input("key: ")
         token = cl.authenticate(key)
         print(token)
@@ -28,17 +28,33 @@ def authenticate():
 
 def get_shedule(user_info):
 
-
+    order = []
     ctime = int(time.time())
     today00 = (ctime - ctime % 86400) - 7200
 
-    Happointments = cl.get_appointments(user_info.get('token'), today00, today00 + 86400) # appointments kijgen
+    Happointments = cl.get_appointments(user_info.get('token'), today00, today00 + 86400) # get appointment
 
-    Happointments = Happointments.get('response')   # MIKE heeft DE LIST IN DEZE DICTIONARY ERUITgeHAaLd
-    appointments = Happointments.get('data') # deze python code zorgt ervoor dat hij de vakkken eruithaalt
-    for appointment in appointments: # met deze
-        print(appointment.get('subjects'), end='')
-        print(appointment.get('teachers'))
+    Happointments = Happointments.get('response')   # extracting response out of the list
+    print(Happointments)
+    appointments = Happointments.get('data') # this extracts the date out of the response
+    for appointment in appointments: # with this code
+        order.append(appointment.get('start'))
+    order.sort() # search for the appointment time in appointment and if match then print the subject, locations, etc.
+    for i in order:
+        for appointment in appointments:# TODO check if appointment already is there, then use the latest appointment (creating date)
+            if i != appointment.get('start'):
+                pass
+            else: # printing only non cancelled stuff and printing information
+                if not appointment.get('cancelled'):
+                    print(appointment.get('subjects'), end='')
+                    print(appointment.get('teachers'), end='')
+                    print(appointment.get('locations'), end='   ')
+                    print(datetime.datetime.fromtimestamp(int(appointment.get('start')))
+                    .strftime('%Y-%m-%d %H:%M:%S') + " ---- ", end='')
+                    print(datetime.datetime.fromtimestamp(int(appointment.get('end')))
+                    .strftime('%Y-%m-%d %H:%M:%S'))
+
+
 
 
 def write_read_tk(option, token): # write or read token from token file

@@ -1,8 +1,6 @@
 import zermelo
-import calendar
 import datetime
 import time
-from os import listdir
 
 school = "maartenscollege" # my school currently *you can change it*
 cl = zermelo.Client(school) # defines client

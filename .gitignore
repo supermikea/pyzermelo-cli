@@ -1,3 +1,4 @@
 # exclude test python file
 /test
 token
+test.py

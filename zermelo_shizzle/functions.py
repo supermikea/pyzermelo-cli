@@ -2,12 +2,13 @@ import zermelo
 import datetime
 import time
 
-school = "maartenscollege" # my school currently *you can change it*
+school = input("school: ") # my school currently *you can change it*
 cl = zermelo.Client(school) # defines client
 
 def authenticate(): # authenticate and try to read from file
     user_info = dict();
     try: # try to use token in token file
+        school =
         token = write_read_tk(False, 0)
         user_info['token'] = token
         user_info['user'] = cl.get_user(token)
@@ -60,9 +61,9 @@ def get_shedule(user_info):
 
 
 
-def write_read_tk(option, token): # write or read token from token file
+def write_read_tk(option, token,): # write or read token from token file
     if option:
-        file = open("zermelo_shizzle/token", "w")
+        file = open("zermelo_shizzle/token" "w")
         print(token)
         file.write(token)
         file.close()
@@ -72,5 +73,19 @@ def write_read_tk(option, token): # write or read token from token file
         token = file.read()
         file.close()
         return token
+
+def write_read_school(option, school,): # write or read school from school file
+    if option:
+        file = open("zermelo_shizzle/school" "w")
+        print(school)
+        file.write(school)
+        file.close()
+        return 0
+    else:
+        file = open("zermelo_shizzle/school", "r")
+        school = file.read()
+        file.close()
+        return school
+
 
 get_shedule(authenticate())

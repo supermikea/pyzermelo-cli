@@ -37,7 +37,10 @@ def get_shedule(user_info):
     appointments = Happointments.get('data') # this extracts the date out of the response
     for appointment in appointments: # with this code
         order.append(appointment.get('start'))
-    order.sort() # search for the appointment time in appointment and if match then print the subject, locations, etc.
+    order.sort() # with this remove duplicates and sort
+    order = set(order)
+    order = sorted(order)
+    print(order) # search for the appointment time in appointment and if match then print the subject, locations, etc.
     for i in order:
         for appointment in appointments:# TODO check if appointment already is there, then use the latest appointment (creating date)
             if i != appointment.get('start'):
@@ -51,6 +54,8 @@ def get_shedule(user_info):
                     .strftime('%H:%M:%S') + " - ", end='')
                     print(datetime.datetime.fromtimestamp(int(appointment.get('end')))
                     .strftime('%H:%M:%S'))
+                    
+    
 
 
 

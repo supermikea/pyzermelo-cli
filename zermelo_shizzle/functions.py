@@ -2,13 +2,20 @@ import zermelo
 import datetime
 import time
 
-school = input("school: ") # my school currently *you can change it*
-cl = zermelo.Client(school) # defines client
-
 def authenticate(): # authenticate and try to read from file
+    global user_info
+    global cl
     user_info = dict();
+    try: 
+        school = write_read_school(False, 0)
+        cl = zermelo.Client(school) # defines client
+    except:
+        school = input("school: ")
+        cl = zermelo.Client(school) # defines client
+        write_read_school(True, school)
+        user_info['school'] = school
+        token = write_read_tk(False, 0)
     try: # try to use token in token file
-        school =
         token = write_read_tk(False, 0)
         user_info['token'] = token
         user_info['user'] = cl.get_user(token)
@@ -23,6 +30,8 @@ def authenticate(): # authenticate and try to read from file
         write_read_tk(True, user_info.get('token'))
         user_info['user'] = user
         return user_info
+
+
         
 
 def get_shedule(user_info):
@@ -41,8 +50,8 @@ def get_shedule(user_info):
     order.sort() # with this remove duplicates and sort
     order = set(order)
     order = sorted(order)
-    print(order) # search for the appointment time in appointment and if match then print the subject, locations, etc.
-    for i in order:
+    #print(order)
+    for i in order: # search for the appointment time in appointment and if match then print the subject, locations, etc.
         for appointment in appointments:# TODO check if appointment already is there, then use the latest appointment (creating date)
             if i != appointment.get('start'):
                 pass
@@ -63,7 +72,7 @@ def get_shedule(user_info):
 
 def write_read_tk(option, token,): # write or read token from token file
     if option:
-        file = open("zermelo_shizzle/token" "w")
+        file = open("zermelo_shizzle/token", "w")
         print(token)
         file.write(token)
         file.close()
@@ -76,7 +85,7 @@ def write_read_tk(option, token,): # write or read token from token file
 
 def write_read_school(option, school,): # write or read school from school file
     if option:
-        file = open("zermelo_shizzle/school" "w")
+        file = open("zermelo_shizzle/school", "w")
         print(school)
         file.write(school)
         file.close()

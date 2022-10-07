@@ -1,6 +1,7 @@
 import zermelo
 import datetime
 import time
+import sys
 
 def authenticate(): # authenticate and try to read from file
     global user_info
@@ -23,9 +24,7 @@ def authenticate(): # authenticate and try to read from file
     except: # token in token file seems invalid so request key again
         key = input("key: ")
         token = cl.authenticate(key)
-        print(token)
         user = cl.get_user(token.get('access_token'))
-        print(user)
         user_info['token'] = token.get('access_token')
         write_read_tk(True, user_info.get('token'))
         user_info['user'] = user
@@ -72,26 +71,24 @@ def get_shedule(user_info):
 
 def write_read_tk(option, token,): # write or read token from token file
     if option:
-        file = open("zermelo_shizzle/token", "w")
-        print(token)
+        file = open(sys.path[0] + "/token", "w")
         file.write(token)
         file.close()
         return 0
     else:
-        file = open("zermelo_shizzle/token", "r")
+        file = open(sys.path[0] + "/token", "r")
         token = file.read()
         file.close()
         return token
 
 def write_read_school(option, school,): # write or read school from school file
     if option:
-        file = open("zermelo_shizzle/school", "w")
-        print(school)
+        file = open(sys.path[0] + "/school", "w")
         file.write(school)
         file.close()
         return 0
     else:
-        file = open("zermelo_shizzle/school", "r")
+        file = open(sys.path[0] + "/school", "r")
         school = file.read()
         file.close()
         return school

@@ -37,7 +37,7 @@ def get_shedule(user_info):
 
     order = []
     ctime = int(time.time())
-    today00 = (ctime - ctime % 86400) - 7200
+    today00 = ctime - ctime % 86400 - 7200
 
     Happointments = cl.get_appointments(user_info.get('token'), today00, today00 + 86400) # get appointment
 

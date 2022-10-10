@@ -46,7 +46,7 @@ def get_shedule(user_info):
     appointments = Happointments.get('data') # this extracts the date out of the response
     for appointment in appointments: # with this code
         order.append(appointment.get('start'))
-    order.sort() # with this remove duplicates and sort
+    order.sort() # with this remove duplicates and sort AND DO NOT TOUCH
     order = set(order)
     order = sorted(order)
     #print(order)
@@ -92,6 +92,3 @@ def write_read_school(option, school,): # write or read school from school file
         school = file.read()
         file.close()
         return school
-
-
-get_shedule(authenticate())

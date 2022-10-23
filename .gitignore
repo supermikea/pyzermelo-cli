@@ -4,3 +4,4 @@ token
 test.py
 __pycache__
 school
+geckodriver.log

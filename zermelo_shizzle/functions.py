@@ -8,16 +8,16 @@ def authenticate(): # authenticate and try to read from file
     global cl
     user_info = dict();
     try: 
-        school = write_read_school(False, 0)
+        school = write_read_f(False, 0, "/school")
         cl = zermelo.Client(school) # defines client
     except:
         school = input("school: ")
         cl = zermelo.Client(school) # defines client
-        write_read_school(True, school)
+        write_read_f(True, school, "/school")
         user_info['school'] = school
-        token = write_read_tk(False, 0)
+        token = write_read_f(False, 0, "/token")
     try: # try to use token in token file
-        token = write_read_tk(False, 0)
+        token = write_read_f(False, 0, "/token")
         user_info['token'] = token
         user_info['user'] = cl.get_user(token)
         return user_info
@@ -26,7 +26,7 @@ def authenticate(): # authenticate and try to read from file
         token = cl.authenticate(key)
         user = cl.get_user(token.get('access_token'))
         user_info['token'] = token.get('access_token')
-        write_read_tk(True, user_info.get('token'))
+        write_read_f(True, user_info.get('token'), "/token")
         user_info['user'] = user
         return user_info
 
@@ -69,26 +69,14 @@ def get_shedule(user_info):
 
 
 
-def write_read_tk(option, token,): # write or read token from token file
+def write_read_f(option, token, location): # write or read token from token file
     if option:
-        file = open(sys.path[0] + "/token", "w")
+        file = open(sys.path[0] + location, "w")
         file.write(token)
         file.close()
         return 0
     else:
-        file = open(sys.path[0] + "/token", "r")
+        file = open(sys.path[0] + location, "r")
         token = file.read()
         file.close()
         return token
-
-def write_read_school(option, school,): # write or read school from school file
-    if option:
-        file = open(sys.path[0] + "/school", "w")
-        file.write(school)
-        file.close()
-        return 0
-    else:
-        file = open(sys.path[0] + "/school", "r")
-        school = file.read()
-        file.close()
-        return school

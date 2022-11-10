@@ -1,4 +1,5 @@
 import functions
+import time
 
 
 def main():  # TODO the actual client
@@ -8,7 +9,8 @@ def main():  # TODO the actual client
 	print("to be completed")
 	print("for now u will just get the usual prompt")
 	time.sleep(1)
-	functions.get_shedule(functions.authenticate())
+	user_info = functions.authenticate()
+	functions.get_shedule(user_info)
 
 
 if __name__ == "__main__":

@@ -35,7 +35,7 @@ def authenticate(): # authenticate and try to read from file
 
 		
 
-def get_shedule(user_info):
+def get_shedule(userinfo):
 	"""
 	gets the shedule from the the API with the information given by authenticate
 	"""
@@ -80,8 +80,8 @@ def write_read_f(option, token, location): # write or read token from token file
 		file.write(token)
 		file.close()
 		return 0
-	else:
-		file = open(sys.path[0] + location, "r")
-		token = file.read()
-		file.close()
-		return token
+	# if option is not True then this is automatically executed
+	file = open(sys.path[0] + location, "r")
+	token = file.read()
+	file.close()
+	return token

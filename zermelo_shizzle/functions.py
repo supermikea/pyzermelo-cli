@@ -84,8 +84,7 @@ def write_read_f(option, token,
         file.write(token)
         file.close()
         return 0
-    else:
-        file = open(sys.path[0] + location, "r")
-        token = file.read()
-        file.close()
-        return token
+    file = open(sys.path[0] + location, "r")
+    token = file.read()
+    file.close()
+    return token

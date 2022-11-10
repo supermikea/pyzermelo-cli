@@ -8,7 +8,7 @@ import zermelo
 def authenticate(): # authenticate and try to read from file
 	global user_info
 	global cl
-	user_info = dict();
+	user_info = {};
 	try: 
 		school = write_read_f(False, 0, "/school")
 		cl = zermelo.Client(school) # defines client

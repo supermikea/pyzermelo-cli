@@ -35,39 +35,51 @@ def authenticate(): # authenticate and try to read from file
 
 		
 
-def get_shedule(userinfo):
+def get_shedule(userinfo, *args):
 	"""
 	gets the shedule from the the API with the information given by authenticate
 	"""
+	time_choice = args[0]
+
+	
 
 	order = []
 	ctime = int(time.time())
 	today00 = ctime - ctime % 86400 - 7200
 
-	Happointments = cl.get_appointments(user_info.get('token'), today00, today00 + 86400) # get appointment
+	#print(args)
+	try:
+		m_today00 = today00 + time_choice * 86400
+	except ValueError:
+		# assume input was 0
+		# TODO maybe this is bad code idk mike check it some other day
+		m_today00 = today00
+
+	Happointments = cl.get_appointments(user_info.get('token'), m_today00, m_today00 + 86400) # get appointment
 
 	Happointments = Happointments.get('response')   # extracting response out of the list
 	#print(Happointments)
 	appointments = Happointments.get('data') # this extracts the date out of the response
 	for appointment in appointments: # with this code
 		order.append(appointment.get('start'))
-	order.sort() # with this remove duplicates and sort AND DO NOT TOUCH
+	order.sort() # with this remove duplicates and sort AND DO NOT TOUCH, PLEASE FOR UR SAFETY
 	order = set(order)
 	order = sorted(order)
 	#print(order)
 	for i in order: # search for the appointment time in appointment and if match then print the subject, locations, etc.
-		for appointment in appointments:# TODO check if appointment already is there, then use the latest appointment (creating date)
-			if i != appointment.get('start'):
+		for appointment in appointments:
+			if i != appointment.get('start') or not appointment.get('valid'):
 				pass
 			else: # printing only non cancelled stuff and printing information
 				if not appointment.get('cancelled'):
+					#print(appointment.get('valid', '\n'))
 					print(appointment.get('subjects'), end='')
 					print(appointment.get('teachers'), end='')
 					print(appointment.get('locations'), end='   ')
 					print(datetime.datetime.fromtimestamp(int(appointment.get('start')))
-					.strftime('%H:%M:%S') + " - ", end='')
+						.strftime('%H:%M:%S') + "  -  ", end='')
 					print(datetime.datetime.fromtimestamp(int(appointment.get('end')))
-					.strftime('%H:%M:%S'))
+						.strftime('%H:%M:%S'))
 					
 	
 

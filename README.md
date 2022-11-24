@@ -6,5 +6,5 @@ zermelo client for zermelo
 - customization
 - the ability to choose more things
 - give more information
-- ability to change dates
+- ability to change dates -- DONE
 - terminal line arguments
